@@ -44,7 +44,7 @@ var state ={
 				{
 					question: "Which character has not been an X-men, Avenger and villain?",
 					answer:["Deadpool","Hank Pym","Wanda Maximoff","Quicksilver"],
-					corPos: 0,
+					corPos: 1,
 				}],
 	correctScore: 0,
 	currentPosition: 0
@@ -56,9 +56,9 @@ var guess = state.currentScore;
 $(document).ready(function(){
 	$('#js-quiz-start').submit(function(e){
 		e.preventDefault();
-		displayQuestions();
-		$('.question-list').removeClass('hidden');
 		$('.submit-answer').removeClass('hidden');
+		displayQuestions();
+		$('.js-quiz').removeClass('hidden');
 		$('#js-quiz-start').addClass('hidden');
 		checkAnswer();
 	});
@@ -72,40 +72,34 @@ $(document).ready(function(){
 
 
 function displayQuestions(){
-	console.log(state.currentPosition);
+//	console.log(state.currentPosition);
 	var ques = state.quiz[state.currentPosition];
 	if(state.currentPosition == state.quiz.length){
 		displayResults();
 	}
 	else
-		$('.question-item').html(" ");
-		$('.question-item').html('<p>'+ques.question+'</p>');
-		console.log(state.quiz[state.currentPosition]);
+		$('.theQuestion').html(ques.question);
+//		console.log(state.quiz[state.currentPosition]);
 
-		$('ul.answers').html('');
+		$('ul.question-list').html('');
 
 		for( var i = 0; i < ques.answer.length; i++){
-			if (i != ques.corPos){
-				$('.question-item').append('<label><input type="radio" name="ans1" value="0" />'+ques.answer[i]+'</label></br>');
-			}
-			else{
-				$('.question-item').append('<label><input type="radio" name="ans1" value="1" />'+ques.answer[i]+'</label></br>');
-			}
-			
-
+			$('.question-list').append('<li><input type="radio" name="ans1" value="'+i+'"id="ans1"/><label for="ans1">'+ques.answer[i]+'</label></li>');
 		}
+
 }
  function checkAnswer(){
  	$('.submit-answer').on('click', this, function(e){
  		e.preventDefault();
- 		var result= $('input:radio[name="ans1"]:checked');
- 		console.log(result.val());
- 		if( result.val() == 1){
+ 		var ques = state.quiz[state.currentPosition];
+ 		var result = $('input:radio[name="ans1"]:checked');
+ //		console.log(result.val());
+ 		if( result.val() == ques.corPos){
  			state.correctScore++
  		};
  		state.currentPosition++ ; 
- 		console.log(state.correctScore);
- 		console.log(state.currentPosition)
+ //		console.log(state.correctScore);
+ //		console.log(state.currentPosition)
  	
  		displayQuestions();
  	});
