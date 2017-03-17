@@ -56,14 +56,13 @@ var guess = state.currentScore;
 $(document).ready(function(){
 	$('#js-quiz-start').submit(function(e){
 		e.preventDefault();
+		displayQuestions();
 		$('.question-list').removeClass('hidden');
 		$('.submit-answer').removeClass('hidden');
 		$('#js-quiz-start').addClass('hidden');
-		displayQuestions();
 		checkAnswer();
-		console.log(state.currentPosition);
-		endGame();
 	});
+
 });
 
 
@@ -73,16 +72,17 @@ $(document).ready(function(){
 
 
 function displayQuestions(){
-	var ques = state.quiz[state.currentPosition];
 	console.log(state.currentPosition);
+	var ques = state.quiz[state.currentPosition];
 	if(state.currentPosition == state.quiz.length){
 		displayResults();
 	}
 	else
+		$('.question-item').html(" ");
 		$('.question-item').html('<p>'+ques.question+'</p>');
 		console.log(state.quiz[state.currentPosition]);
 
-		
+		$('ul.answers').html('');
 
 		for( var i = 0; i < ques.answer.length; i++){
 			if (i != ques.corPos){
@@ -116,18 +116,23 @@ function displayQuestions(){
 function displayResults(){
 	if( state.currentPosition == state.quiz.length){
 		$('.js-score').removeClass('hidden');
+		$('.submit-answer').addClass('hidden');
 		$('.js-score').text('You Scored '+state.correctScore+' out of '+ state.quiz.length);
 		$('.js-end').removeClass('hidden');
+		endGame();
 	}
-	endGame();
+	
 }
 
 function endGame(){
 	
-	$('.submit-answer').on('click', this, function(e){
+	$('.js-end').on('click', this, function(e){
  		e.preventDefault();
  		state.currentPosition =0;
  		state.correctScore =0;
+ 		$('.js-end').addClass('hidden');
+ 		$('.js-score').addClass('hidden');
+ 		$('.submit-answer').removeClass('hidden');
  		displayQuestions();
 	});
 }
