@@ -21,13 +21,12 @@
     <form id="js-quiz-start">
         <button type="submit">Begin</button>
     </form>
+
     <form id="js-quiz">
     <ul class="question-list hidden">
       <li>
-        <span class="question-item"><p>Question 1</p>
+        <span class="question-item"><p class="theQuestion"></p>
             <label><input type="radio" name="ans1" value="1" /> Answer 1</label></br>
-            <label><input type="radio" name="ans1" value="0" /> Answer 2</label></br>
-            <label><input type="radio" name="ans1" value="0" /> Answer 3</label></br>
         </span>
        </li>
 
@@ -38,14 +37,17 @@
           </button>
     </div>
     </form>
+      <div class="js-end hidden">
+          <button type="submit" class="restart">
+            <span class="button-label">Restart Game</span>
+          </button>
+    </div>
 
   </div>
   <div class="container">
 
-    <h2>Score</h2>
-    <p> Correct:<span class="js-correct-score-counter">0</span></p>
-    <p> Incorrect:<span class="js-incorrect-score-counter">0</span></p>
-
+    <h2 class ="js-score hidden">Score</h2>
+   
   </div>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <!-- link to my app.js -->
